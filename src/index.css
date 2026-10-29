@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* Tokens from the Dashboard UI reference: warm beige canvas, sage-green accent, near-black ink. */
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #ebe9e4;
+  --color-panel: #ffffff;
+  --color-line: #e7e5df;
+  --color-ink: #1a1f1b;
+  --color-body: #444c46;
+  --color-muted: #626a64;
+  --color-subtle: #626a64;
+  --color-accent: #4a6b55;
+  --color-accent-hover: #3d5a47;
+  --color-accent-soft: #e6eee8;
+  --color-sage: #7a9484;
+  --color-badge: #1c211e;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Load animations. `backwards` fill keeps no transform on finished elements, so popovers and sticky bars stay unaffected. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+.enter {
+  animation: fade-up 480ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.fade-in {
+  animation: fade-in 260ms ease-out backwards;
+}
+
+.grow-x {
+  transform-origin: left;
+  animation: grow-x 700ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 250ms);
+}
+
+.grow-y {
+  transform-origin: bottom;
+  animation: grow-y 700ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 250ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .fade-in,
+  .grow-x,
+  .grow-y {
+    animation: none;
+  }
+}
